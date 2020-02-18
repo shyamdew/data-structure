@@ -88,7 +88,7 @@ public class MaxHeap {
 	 * Remove the last element from the array
 	 * call precoalte down with root index
 	 */
-	public int delete(MaxHeap heap) {
+	public int delete() {
 		if(count <= 0) {
 			return -1;
 		}
