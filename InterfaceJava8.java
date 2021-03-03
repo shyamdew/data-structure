@@ -40,3 +40,40 @@ public class MyClass implements Interface1, Interface2 {
 // One of the major reason for introducing default methods in interfaces is to enhance the Collections API in Java 8 to support lambda expressions.
 // If any class in the hierarchy has a method with same signature, then default methods become irrelevant. A default method cannot override a method from java.lang.Object. The reasoning is very simple, it’s because Object is the base class for all the java classes. So even if we have Object class methods defined as default methods in interfaces, it will be useless because Object class method will always be used. That’s why to avoid confusion, we can’t have default methods that are overriding Object class methods.
 // Java interface default methods are also referred to as Defender Methods or Virtual extension methods.
+public interface MyData {
+
+	default void print(String str) {
+		if (!isNull(str))
+			System.out.println("MyData Print::" + str);
+	}
+
+	static boolean isNull(String str) {
+		System.out.println("Interface Null Check");
+
+		return str == null ? true : "".equals(str) ? true : false;
+	}
+}
+
+package com.journaldev.java8.staticmethod;
+
+public class MyDataImpl implements MyData {
+
+	public boolean isNull(String str) {
+		System.out.println("Impl Null Check");
+
+		return str == null ? true : false;
+	}
+	
+	public static void main(String args[]){
+		MyDataImpl obj = new MyDataImpl();
+		obj.print("");
+		obj.isNull("abc");
+	}
+}
+
+
+// Java interface static method is part of interface, we can’t use it for implementation class objects.
+// Java interface static methods are good for providing utility methods, for example null check, collection sorting etc.
+// Java interface static method helps us in providing security by not allowing implementation classes to override them.
+// We can’t define interface static method for Object class methods, we will get compiler error as “This static method cannot hide the instance method from Object”. This is because it’s not allowed in java, since Object is the base class for all the classes and we can’t have one class level static method and another instance method with same signature.
+// We can use java interface static methods to remove utility classes such as Collections and move all of it’s static methods to the corresponding interface, that would be easy to find and use.
